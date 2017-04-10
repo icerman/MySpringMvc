@@ -3,8 +3,8 @@
     <c:set var="path" value="${pageContext.request.contextPath}" />  
 <tr>  
    <td colspan="5">  
-            共${pageBean.total}条记录 共${pageBean.pages}页 每页显示${pageBean.pageSize}条  
-            当前第${pageBean.pageNum}页&nbsp;  
+            共${pageBean.total}条记录 每页显示${pageBean.pageSize}条  &nbsp;&nbsp;&nbsp;&nbsp;
+            当前第${pageBean.pageNum}/${pageBean.pages}页&nbsp;  
        <c:choose>  
            <c:when test="${pageBean.hasPreviousPage eq false}">  
                  &lt&lt首页&nbsp;&lt上页&nbsp;  
