@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsx.web.dao.ACourseDao" >
+  <resultMap id="BaseResultMap" type="com.zsx.web.entity.course" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="credit" property="credit" jdbcType="INTEGER" />
+    <result column="belong" property="belong" jdbcType="VARCHAR" />
+     <result column="teacher" property="teacher" jdbcType="VARCHAR" />
+    <result column="place" property="place" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="detail" property="detail" jdbcType="VARCHAR" />
+    <result column="selected" property="selected" jdbcType="INTEGER" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, time,credit,teacher,belong,place,amount,detail,selected
+  </sql>
+  
+  <select id="findhot" resultMap="BaseResultMap" >
+  	select 
+ 	<include refid="Base_Column_List" />
+ 	from course order by  selected desc limit 3
+  </select>
+
+    
+  <select id="findallcourse" resultMap="BaseResultMap" >
+  	select 
+ 	<include refid="Base_Column_List" />
+ 	from course order by  selected desc
+  </select>
+  
+    <select id="findbyId" resultMap="BaseResultMap" >
+  	select 
+ 	<include refid="Base_Column_List" />
+ 	from course 
+ 	where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <update id="updatecourse">
+  	update course
+  	set selected = #{sted,jdbcType=INTEGER}
+  	where id = #{id,jdbcType=INTEGER}
+  
+  </update>
+  
+  <!--************************************admin操作********************************************* -->
+  
+   <insert id ="AddCourse" parameterType="com.zsx.web.entity.course" keyProperty="Id">
+    insert into course(name, time,credit,teacher,belong,place,amount,detail)  
+    values (
+            #{cou.name},  
+            #{cou.time},  
+            #{cou.credit},  
+            #{cou.teacher},  
+            #{cou.belong},
+            #{cou.place},
+            #{cou.amount},
+            #{cou.detail}
+            )  
+    </insert>  
+  
+  
+  
+</mapper>

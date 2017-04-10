@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsx.web.dao.AStudyDao" >
+  <resultMap id="BaseResultMap" type="com.zsx.web.entity.study" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sid" property="sid" jdbcType="VARCHAR" />
+    <result column="cid" property="cid" jdbcType="VARCHAR" />
+    <result column="sname" property="sname" jdbcType="VARCHAR" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
+    <result column="cbelong" property="cbelong" jdbcType="VARCHAR" />
+    <result column="ccredit" property="ccredit" jdbcType="INTEGER" />
+    <result column="ctime" property="ctime" jdbcType="VARCHAR" />
+    <result column="smajor" property="smajor" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id,sid,sname,smajor,cid,cname,cbelong,ccredit,ctime
+  </sql>
+  
+  <select id="findallstudy" resultMap="BaseResultMap">
+  	select 
+ 	<include refid="Base_Column_List" />
+ 	from study order by cname
+  </select>
+  
+  <select id="findbyName" resultMap="BaseResultMap">
+  	select 
+ 	<include refid="Base_Column_List" />
+ 	from study
+ 	where sname = #{name,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="findStudyById" resultMap="BaseResultMap">
+  	select 
+ 	<include refid="Base_Column_List" />
+ 	from study
+ 	where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insertstudy" >
+  	insert into study(sid,sname,smajor,cid,cname,cbelong,ccredit,ctime)
+ 	values(#{sdy.sid},#{sdy.sname},#{sdy.smajor},#{sdy.cid},#{sdy.cname},#{sdy.cbelong},${sdy.ccredit},#{sdy.ctime})
+  </insert>
+  
+  <select id="findselectstudent" resultMap="BaseResultMap">
+  	select 
+ 	<include refid="Base_Column_List" />
+ 	from study
+ 	where cid = #{id,jdbcType=INTEGER} order by sid
+  </select>
+  
+   <delete id="delcourse">
+  		delete from study
+  	 		<trim prefix="WHERE" prefixOverrides="AND|OR">  
+       			 <if test="cid !=null ">  
+           			 cid  = #{cid, jdbcType=VARCHAR}  
+   			     </if>  
+       			 <if test="sid != null and sid != '' ">  
+       			    AND sid = #{sid, jdbcType=VARCHAR}  
+     			   </if>  
+ 		   </trim>     
+  
+  </delete>
+</mapper>

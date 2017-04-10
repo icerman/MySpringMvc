@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsx.web.dao.AStudentDao" >
+  <resultMap id="BaseResultMap" type="com.zsx.web.entity.student" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="studentID" property="studentID" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="VARCHAR" />
+    <result column="major" property="major" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id,studentID,name,gender,pwd,age,year,major
+  </sql>
+  <select id="findallstudent" resultMap="BaseResultMap" parameterType="com.zsx.web.entity.student">
+  	select 
+ 	<include refid="Base_Column_List" />
+ 	from student
+  </select>
+  
+  <select id="findbynumber" resultMap="BaseResultMap" parameterType="com.zsx.web.entity.student">
+  	select 
+ 	<include refid="Base_Column_List" />
+ 	from student
+ 	where studentID = #{studentID,jdbcType=VARCHAR}
+  </select>
+  
+  <update id="changpwd">
+  	update student set
+  	pwd = #{pwd,jdbcType=VARCHAR}
+  	where studentID = #{stu.studentID,jdbcType=VARCHAR}
+  
+  </update>
+   
+ <insert id ="AddStudent" parameterType="com.zsx.web.entity.student">  
+    insert into student(studentID,name,gender,pwd,year,major)  
+    values (
+            #{stu.studentID},  
+            #{stu.name},  
+            #{stu.gender},  
+            #{stu.pwd},  
+            #{stu.year},
+            #{stu.major}
+            )  
+    </insert> 
+  
+  
+</mapper>

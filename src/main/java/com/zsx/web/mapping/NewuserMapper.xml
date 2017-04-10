@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsx.web.dao.NewuserDao" >
+  <resultMap id="BaseResultMap" type="com.zsx.web.entity.Newuser" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, gender, password
+  </sql>
+  
+  
+  <select id="findbyName" resultMap="BaseResultMap" parameterType="com.zsx.web.entity.Newuser">
+  	select 
+ 	<include refid="Base_Column_List" />
+ 	from newuser
+ 	where name = #{name,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="addnewuser" parameterType="com.zsx.web.entity.Newuser">
+  	insert into newuser 
+  	(name, gender, password) 
+ 	values(#{user.name}, #{user.gender},#{user.password})
+  </insert>
+  
+</mapper>
